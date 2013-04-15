@@ -2,6 +2,12 @@
 <html>
     <head>
   	  <title>Web Stack Library</title>
+        <script src="http://www.parsecdn.com/js/parse-1.2.6.min.js"></script>
+        <script>
+            Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
+            var currentUser = Parse.User.current();
+            alert(currentUser.name);
+        </script>
 		</head>
     <body>
         <div id="bodyview">Hello EnochPrepared</div>
