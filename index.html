@@ -25,7 +25,7 @@
             Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
             var currentUser = Parse.User.current();
             if (!currentUser){
-                //alert("You need to login")
+                alert("You need to login")
                 $('#mainview').html(loginView.render().$el)
             }
             alert(currentUser.name);
