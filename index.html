@@ -1,34 +1,60 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-  	  <title>Web Stack Library</title>
+  	  <title>EnochPrepared</title>
+         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.6.min.js"></script>
         <script>
+            Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
+            
             var loginView = Parse.View.extend({
                   tagName: 'div',
-                  template: "<div>Username:<input type='text' /><br />password:<input type='text' /></div>",
+                  template: "<div>Username:<input type='text' /><br />password:<input type='text' /><br /><button>login</button></div>",
+                  events: {
+                      'click button': 'login'
+                  },
+                  render: function(){
+                      this.$el.html(this.template)
+                      return this;
+                  },
+                  login: function(){
+                      alert(this.$('input').first().val())
+                      alert(this.$('input').last().val())
+                  }
+            });
+            var itemView = Parse.View.extend({
+                  tagName: 'div',
+                  template: "<div>list of items</div>",
                   render: function(){
                       this.$el.html(this.template)
                       return this;
                   }
-            })
+            });
+            function sendMail(){
+                alert('sending mail');                
+            }
         </script>
 		</head>
     <body>
         <div id="bodyview">
-            <button>Items</button><button>shopping list</button>
+            <button>Items</button><button>shopping list</button><button onclick="sendMail()">Send test Mail</button>
             <div id="mainview">
                 Hello EnochPrepared
             </div>
         </div>
          <script>
-            Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
+            
             var currentUser = Parse.User.current();
             if (!currentUser){
-                alert("You need to login")
-                $('#mainview').html(loginView.render().$el)
+                var view = new loginView();
+                var html = view.render().$el;
+                $('#mainview').html(html)
             }
-            alert(currentUser.name);
+            else
+                $('#mainview').html("<p>Welcome " + currentUser.name)
+            
         </script>
     </body>
 </html>
