@@ -2,16 +2,17 @@
 <html>
     <head>
   	  <title>EnochPrepared</title>
-         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script>var Parse;</script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.6.min.js"></script>
         <script>
             Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
-            
+            alert('parse initialized')
             var loginView = Parse.View.extend({
                   tagName: 'div',
-                  template: "<div>Username:<input type='text' /><br />password:<input type='text' /><br /><button>login</button></div>",
+                  template: "<div>Username:<input type='text' /><br />password:<input type='password' /><br /><button>login</button></div>",
                   events: {
                       'click button': 'login'
                   },
@@ -22,6 +23,13 @@
                   login: function(){
                       alert(this.$('input').first().val())
                       alert(this.$('input').last().val())
+                      Parse.User.login({
+                          username: this.$('input').first().val(),
+                          password:this.$('input').last().val(),
+                          success: function(){
+                              alert(Parse.User.current().get('name'))
+                          }
+                      })
                   }
             });
             var itemView = Parse.View.extend({
@@ -35,25 +43,19 @@
             function sendMail(){
                 alert('sending mail');                
             }
+            $(document).ready(function(){
+               alert("hello world")
+            })
         </script>
 		</head>
     <body>
         <div id="bodyview">
-            <button>Items</button><button>shopping list</button><button onclick="sendMail()">Send test Mail</button>
+            
             <div id="mainview">
-                Hello EnochPrepared
+                Hello EnochPrepared with empty view box.
             </div>
         </div>
-         <script>
-            
-            var currentUser = Parse.User.current();
-            if (!currentUser){
-                var view = new loginView();
-                var html = view.render().$el;
-                $('#mainview').html(html)
-            }
-            else
-                $('#mainview').html("<p>Welcome " + currentUser.name)
+        <script>
             
         </script>
     </body>
