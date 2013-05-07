@@ -4,12 +4,12 @@
   	  <title>EnochPrepared</title>
         <script>var Parse;</script>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="//code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-        <script src="//www.parsecdn.com/js/parse-1.2.6.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="http://www.parsecdn.com/js/parse-1.2.6.min.js"></script>
         <script>
             Parse.initialize("XGceIjJFr8yDdpjhuaVcCkyOnQBwUJ2bpMOFt2CO", "RVqgJfG0wo8S4TDbbLkmkfxIeRLYqSVv8DbXuauz");
-            alert('parse initialized' + $ + Parse)
+
             var loginView = Parse.View.extend({
                   tagName: 'div',
                   template: "<div>Username:<input type='text' /><br />password:<input type='password' /><br /><button>login</button></div>",
@@ -21,13 +21,12 @@
                       return this;
                   },
                   login: function(){
-                      alert(this.$('input').first().val())
-                      alert(this.$('input').last().val())
-                      Parse.User.login({
-                          username: this.$('input').first().val(),
-                          password:this.$('input').last().val(),
+                      Parse.User.logIn(this.$('input').first().val(), this.$('input').last().val(),{
                           success: function(){
-                              alert(Parse.User.current().get('name'))
+                              alert("successful")
+                          },
+                          error: function(){
+                              alert('failure')
                           }
                       })
                   }
@@ -45,14 +44,13 @@
             }
             $(document).ready(function(){
                 var currentUser = Parse.User.current();
-                alert(currentUser)
                 if (!currentUser){
                     var view = new loginView();
                     var html = view.render().$el;
                     $('#mainview').html(html)
                 }
                 else
-                    $('#mainview').html("<p>Welcome " + currentUser.name + '</p>')
+                    $('#mainview').html("<p>Welcome " + currentUser.get('name') + '</p>')
             })
         </script>
 		</head>
